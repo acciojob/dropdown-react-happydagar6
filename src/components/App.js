@@ -1,5 +1,5 @@
 import React, { useState,useReducer } from "react";
-import "./../styles/App.css";
+import "../styles/App.css";
 
 
 const states = [{
@@ -138,12 +138,94 @@ const states = [{
 }];
 
 
-function App() 
-{
+function App() {
 	// Do not alter/remove main div
+	const [stateIndex, setStateIndex] = useState(0);
+	const [cityIndex, setCityIndex] = useState(0);
+	const [landmarkIndex, setLandmarkIndex] = useState(0);
+
+	const handleStateChange = (event) => {
+		setStateIndex(parseInt(event.target.value)); // Update the stateIndex based on the selected option
+		setCityIndex(0); // Reset cityIndex to 0 when state changes
+		setLandmarkIndex(0); // Reset landmarkIndex to 0 when state changes
+	};
+	
+	const handleCityChange = (event) => {
+		setCityIndex(parseInt(event.target.value)); // Update the cityIndex based on the selected option
+		setLandmarkIndex(0); // Reset landmarkIndex to 0 when city changes
+	};
+
+	const handleLandmarkChange = (event) => {
+		setLandmarkIndex(parseInt(event.target.value)); // Update the landmarkIndex based on the selected option
+	}
+
+	const selectedState = states[stateIndex]; // Get the selected state based on the stateIndex
+	const selectedCity = selectedState?.city[cityIndex]; // Get the selected city based on the cityIndex
+	const selectedLandmark = selectedCity?.landmarks[landmarkIndex]; // Get the selected landmark based on the landmarkIndex
+
+
 	return (
 	<div id="main">
-		
+		<div className="dropdown-container">
+			<select id="state" value={stateIndex} onChange={handleStateChange}>
+				{states.map((state, index) => (
+					<option key={index} value={index}>
+						{state.name}
+					</option>
+				))}
+			</select>
+
+			<select id="city" value={cityIndex} onChange={handleCityChange}>
+				{selectedState?.city.map((c, index) => (
+					<option key={index} value={index}>
+						{c.name}
+					</option>
+				))}
+
+			</select>
+
+			<select id="landmark" value={landmarkIndex} onChange={handleLandmarkChange}>
+				{selectedCity?.landmarks.map((landmark, index) => (
+					<option key={index} value={index}>
+						{landmark.name}
+					</option>
+				))}
+
+			</select>
+		</div>
+
+		<div className="details-container">
+				{selectedState && (
+					<div className="state-info">
+						<div id="state-name">
+							{selectedState.name}
+						</div>
+						<div id="state-description">
+							{selectedState.description}
+						</div>
+					</div>
+				)}
+				{selectedCity && (
+					<div>
+						<div id="city-name">
+							{selectedCity.name}
+						</div>
+						<div id="city-description">
+							{selectedCity.description}
+						</div>
+					</div>
+				)}
+				{selectedLandmark && (
+					<div>
+						<div id="landmark-name">
+							{selectedLandmark.name}
+						</div>
+						<div id="landmark-description">
+							{selectedLandmark.description}
+						</div>
+					</div>
+				)}
+		</div>
 	</div>
 	);
 }
