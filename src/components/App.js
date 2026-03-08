@@ -197,7 +197,7 @@ function App() {
 		<div className="details-container">
 				{selectedState && (
 					<div className="state-info">
-						<div id="state-name">
+						<div id="state-title">
 							{selectedState.name}
 						</div>
 						<div id="state-description">
@@ -207,7 +207,7 @@ function App() {
 				)}
 				{selectedCity && (
 					<div>
-						<div id="city-name">
+						<div id="city-title">
 							{selectedCity.name}
 						</div>
 						<div id="city-description">
@@ -217,7 +217,7 @@ function App() {
 				)}
 				{selectedLandmark && (
 					<div>
-						<div id="landmark-name">
+						<div id="landmark-title">
 							{selectedLandmark.name}
 						</div>
 						<div id="landmark-description">
